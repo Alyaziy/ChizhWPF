@@ -1,0 +1,39 @@
+﻿<Window x:Class="ChizhWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChizhWPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Окно авторизации" Height="450" Width="800" MaxHeight="450" MaxWidth="800" Background="#F5EDF0" FontFamily="Segoe Print" FontSize="20">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="225"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="Введите Логин" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="5" Height="35"/>
+            <TextBox FontSize="20" Text="{Binding NameUser}" Margin="5" Height="30"/>
+            <TextBlock Text="Введите Пароль" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="5" Height="35"/>
+            <TextBox FontSize="20" Text="{Binding Password}" Margin="5" Height="30"/>
+            <Button BorderThickness="1" Background="#DCBDDF" Content="Войти" Height="35" FontSize="20" Margin="5" Width="150" Click="SignIn" />
+            <!--<TextBlock FontSize="15" Margin="5" HorizontalAlignment="Center">
+                <Hyperlink Click="SignUp">Нет аккаунта?</Hyperlink>
+            </TextBlock>-->
+            <!--<TextBlock FontSize="15" HorizontalAlignment="Center">
+                <Hyperlink Click="IForgor">Забыли пароль?</Hyperlink>
+            </TextBlock>-->
+        </StackPanel>
+        <StackPanel >
+            <Image Source="C:\Users\Student\source\repos\ChizhWPF\ChizhWPF\Image\4961572.png" Height="106"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
