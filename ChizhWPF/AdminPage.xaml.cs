@@ -3,7 +3,6 @@ using ChizhWPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,22 +12,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ChizhWPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AdminPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminPage : Window
     {
-        
-        public UserDTO User { get; set; }
-        public string NameUser { get; set; }
-        public string Password { get; set; }
+        public AdminDTO Admin { get; set; }
+        public string AdmName { get; set; }
+        public string AdmPassword { get; set; }
 
-        public MainWindow()
+        public AdminPage()
         {
             InitializeComponent();
             DataContext = this;
@@ -38,21 +35,15 @@ namespace ChizhWPF
         {
             try
             {
-                var user = await Client.Instance.UserLogin(User, NameUser, Password);
-                TrainPage trainPage = new TrainPage();
-                trainPage.Show();
+                var admin = await Client.Instance.AdminLogin(Admin, AdmName, AdmPassword);
+                AdmTrainPage admTrainPage = new AdmTrainPage();
+                admTrainPage.Show();
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void IAdmin(object sender, RoutedEventArgs e)
-        {
-            new AdminPage().Show();
-            Close();
         }
     }
 }

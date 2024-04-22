@@ -89,6 +89,27 @@ namespace ChizhWPF.API
 
         }
 
+        public async Task<AdminDTO> AdminLogin(AdminDTO admin, string name, string password)
+        {
+
+
+            {
+                var loginAdmin = new AdminDTO
+                {
+                    AdmName = name,
+                    AdmPassword = password
+                };
+                var jsonContent = JsonConvert.SerializeObject(loginAdmin);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await httpClient.PostAsync("Admin/AdminLogin", httpContent);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Неправильный логин или пароль");
+                }
+                var answerAdmin = JsonConvert.DeserializeObject<AdminDTO>(await response.Content.ReadAsStringAsync());
+                return answerAdmin;
+            }
+        }
 
         static Client instance = new();
         public static Client Instance
