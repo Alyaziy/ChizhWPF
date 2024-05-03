@@ -1,0 +1,80 @@
+﻿<Window x:Class="ChizhWPF.AdmPozePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChizhWPF"
+        mc:Ignorable="d"
+        Title="AdmPozePage" Height="450" Width="800" FontFamily="Segoe Print" FontSize="15" WindowStartupLocation="CenterScreen">
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button Content="Тренировки" Click="buttonTrainAdm" Margin="5" Background="#DCBDDF"/>
+                <Button Content="Позы" Click="buttonPozeAdm" Margin="5" Background="#DCBDDF"/>
+            
+        </StackPanel>
+
+            <TextBlock Text="Позы" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Center"/>
+
+        <DataGrid Grid.ColumnSpan="5" CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False"
+  ItemsSource="{Binding Pozes}" SelectedItem="{Binding SelectedPoze}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="5" Grid.Column="0"  BorderThickness="0.5">
+                                    <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
+                                </Border>
+                                <Border Width="300" Padding="5" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <TextBlock  Text="{Binding Tittle,
+                                        StringFormat='Название: {0}'}" />
+                                        <TextBlock Text="{Binding Description,
+                                        StringFormat='Описание: {0}'}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Time,
+                                        StringFormat='Время: {0}'}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--<DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Tittle}"/>
+                    <DataGridTextColumn Binding="{Binding Description}"/>
+                    <DataGridTextColumn Binding="{Binding Time}"/>
+                    <DataGridTextColumn Binding="{Binding IdMuscle.MuTittle}"/>
+                
+            </DataGrid.Columns>-->
+                
+        <StackPanel Grid.ColumnSpan="5" HorizontalAlignment="Right">
+            <Button Content="Добавить" Click="AddPoze"/>
+            <Button Content="Редактировать" Click="EditPoze"/>
+            <Button Content="Удалить" Click="DeletePoze"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Button Content="Выйти" Click="logOut" Margin="13" Background="#DCBDDF" />
+        </StackPanel>
+
+            
+        </Grid>
+</Window>

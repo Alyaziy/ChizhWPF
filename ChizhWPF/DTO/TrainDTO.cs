@@ -14,10 +14,8 @@ namespace ChizhWPF.DTO
 
         public string? TrDescription { get; set; }
 
-        public int? IdPoze { get; set; }
-
-        public int? IdMuscle { get; set; }
-
         public decimal? TrTime { get; set; }
+       
+        public List<PozeDTO> Pozes { get; set; }
     }
 }

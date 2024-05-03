@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChizhWPF"
         mc:Ignorable="d"
-        Title="AdmTrainPage" Height="450" Width="800">
+        Title="AdmTrainPage" Height="450" Width="800" FontFamily="Segoe Print" FontSize="15" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" Orientation="Horizontal" >
+            <Button Content="Тренировки" Click="buttonTrainAdm" Margin="5" Background="#DCBDDF"/>
+            <Button Content="Позы" Click="buttonPozeAdm" Margin="5" Background="#DCBDDF"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Button Content="Выйти" Click="logOut" Margin="13" Background="#DCBDDF" />
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="5" HorizontalAlignment="Right">
+            <Button Content="Добавить" Click="AddTrain"/>
+            <Button Content="Редактировать" Click="EditTrain"/>
+            <Button Content="Удалить" Click="DeleteTrain"/>
+        </StackPanel>
+
+        <TextBlock Text="Тренировки" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center"/>
         
+        <DataGrid Grid.ColumnSpan="5" CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False"
+          ItemsSource="{Binding Trains}" SelectedItem="{Binding SelectedTrain}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding TrTittle}"/>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TrDescription}" TextWrapping="Wrap" Width="300"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding TrTime}"/>
+                <!--<DataGridTextColumn Binding="{Binding MuTittle}"/>-->
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

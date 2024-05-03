@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChizhWPF"
         mc:Ignorable="d"
-        Title="TrainPage" Height="450" Width="800" Background="#F5EDF0" FontFamily="Segoe Print" FontSize="20" WindowStartupLocation="CenterScreen">
+        Title="TrainPage" Height="450" Width="800" Background="#F5EDF0" FontFamily="Segoe Print" FontSize="18" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="110" />
@@ -21,6 +21,10 @@
         <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" Orientation="Horizontal" >
             <Button Content="Тренировки" Click="buttonTrain" Margin="5" Background="#DCBDDF"/>
             <Button Content="Позы" Click="buttonPoze" Margin="5" Background="#DCBDDF"/>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Button Content="Выйти" Click="logOut" Margin="13" Background="#DCBDDF" />
         </StackPanel>
 
         <TextBlock Text="Тренировки" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Center"/>
@@ -40,7 +44,5 @@
                 <DataGridTextColumn Binding="{Binding TrTime}"/>
             </DataGrid.Columns>
         </DataGrid>
-
-      
     </Grid>
 </Window>

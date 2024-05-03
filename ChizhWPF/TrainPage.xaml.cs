@@ -58,5 +58,11 @@ namespace ChizhWPF
             new TrainPage().Show();
             Close();
         }
+
+        private void logOut(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

@@ -19,5 +19,7 @@ namespace ChizhWPF.DTO
         public string? Description { get; set; }
 
         public int? IdMuscle { get; set; }
+
+        public string Muscle { get; set; }
     }
 }
