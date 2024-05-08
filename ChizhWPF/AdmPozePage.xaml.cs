@@ -30,8 +30,19 @@ namespace ChizhWPF
         }
 
         public PozeDTO SelectedPoze { get; set; }
-        public MuscleDTO SelectedMuscle { get; set; }
+        public MuscleDTO selectedMuscle { get; set; }
         public AdminDTO Admin { get; set; }
+        public List<MuscleDTO> Muscles { get; set; }
+
+        public MuscleDTO SelectedMuscles
+        {
+            get => selectedMuscle;
+            set
+            {
+                selectedMuscle = value;
+                LoadPoze(SelectedMuscles);
+            }
+        }
 
         private ObservableCollection<PozeDTO> pozes;
 
@@ -40,6 +51,7 @@ namespace ChizhWPF
             InitializeComponent();
             DataContext = this;
             LoadPoze();
+            LoadMuscle();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -58,6 +70,31 @@ namespace ChizhWPF
         {
             Pozes = new ObservableCollection<PozeDTO>(await client.GetPoze());
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pozes)));
+        }
+
+        private async Task LoadPoze(MuscleDTO muscle)
+        {
+            Client client = new Client();
+            if (muscle == null || muscle.Id == 0)
+            {
+                LoadPoze(client);
+                return;
+            }
+            Pozes = new ObservableCollection<PozeDTO>(await client.GetPoze1(muscle.Id));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pozes)));
+        }
+
+        private async Task LoadMuscle()
+        {
+            try
+            {
+                var client = new Client();
+                Muscles = await client.GetMuscle();
+                Muscles.Insert(0, new MuscleDTO { MuTittle = "Все позы" });
+                SelectedMuscles = Muscles.First();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Muscles)));
+            }
+            catch { }
         }
 
         private void buttonTrainAdm(object sender, RoutedEventArgs e)
@@ -92,7 +129,7 @@ namespace ChizhWPF
                 MessageBox.Show("Выберите позу!");
                 return;
             }
-            new EditPoze(Admin, SelectedPoze, SelectedMuscle).ShowDialog();
+            new EditPoze(Admin, SelectedPoze).ShowDialog();
             LoadPoze();
 
         }

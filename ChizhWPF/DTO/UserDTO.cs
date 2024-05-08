@@ -14,8 +14,8 @@ namespace ChizhWPF.DTO
 
         public string? Password { get; set; }
 
-        public decimal? Weight { get; set; }
+        public string? Weight { get; set; }
 
-        public int? Height { get; set; }
+        public string? Height { get; set; }
     }
 }

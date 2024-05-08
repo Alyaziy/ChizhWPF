@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +29,8 @@ namespace ChizhWPF
         public string NameUser { get; set; }
         public string Password { get; set; }
 
+        public User user {  get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace ChizhWPF
             try
             {
                 var user = await Client.Instance.UserLogin(User, NameUser, Password);
-                TrainPage trainPage = new TrainPage();
+                TrainPage trainPage = new TrainPage(user);
                 trainPage.Show();
                 Close();
             }
@@ -47,6 +50,12 @@ namespace ChizhWPF
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            new Register().Show();
+            Close();
         }
 
         private void IAdmin(object sender, RoutedEventArgs e)

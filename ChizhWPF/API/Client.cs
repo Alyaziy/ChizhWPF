@@ -66,6 +66,20 @@ namespace ChizhWPF.API
 
         }
 
+        public async Task<UserDTO> GetUser(int id)
+
+        {
+            HttpResponseMessage responseId = await httpClient.GetAsync($"User/GetUser/{id}");
+            if (responseId.IsSuccessStatusCode)
+            {
+                throw new Exception("Failed to retrieve user information");
+            }
+            var content = await responseId.Content.ReadAsStringAsync();
+            var user = JsonConvert.DeserializeObject<UserDTO>(content);
+
+            return user;
+        }
+
         public async Task<List<PozeDTO>> GetPoze()
 
         {
@@ -89,6 +103,30 @@ namespace ChizhWPF.API
                 return null;
             }
 
+        }
+
+        public async Task<List<PozeDTO>> GetPoze1(int muscle)
+
+        {
+            try
+            {
+                var response = await httpClient.GetAsync("Poze/GetPozeByMuscle?muscle=" + muscle);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<PozeDTO>>(content);
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обработка исключений
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<List<MuscleDTO>> GetMuscle()
@@ -138,6 +176,20 @@ namespace ChizhWPF.API
             }
         }
 
+        public async Task RegisterAsync(UserDTO user)
+        {
+            using (var client = new HttpClient())
+            {
+                var jsonContent = JsonConvert.SerializeObject(user);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await httpClient.PostAsync("User/Register", httpContent);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Не удалось добавить юзера.");
+                }
+            }
+        }
+
         public async Task AddTrainAsync(TrainDTO train)
         {
             using (var client = new HttpClient())
@@ -179,38 +231,13 @@ namespace ChizhWPF.API
             return train;
         }
 
-        public async Task<PozeDTO> EditPoze(MuscleDTO muscle, PozeDTO poze, int id)
+        public async Task<PozeDTO> EditPoze(PozeDTO poze, int id)
         {
-            //var shit = System.Text.Json.JsonSerializer.Serialize(poze);
-            //using StringContent jsonContent = new(shit,Encoding.UTF8,"application/json");
-            //using HttpResponseMessage response = await httpClient.PutAsync("Poze/" + poze.Id, jsonContent);
-
-
-            poze.IdMuscle = poze.Id;
-            poze.Muscle = poze.Muscle;
-            poze.Tittle = poze.Tittle;  
-            poze.Time = poze.Time;  
-            poze.Description = poze.Description;
-            poze.Image = poze.Image;
-
-            //400 Bad regrest
-            using HttpResponseMessage response = await httpClient.PutAsJsonAsync($"Poze/Edit/{poze.Id}", muscle.Id);
-            //response - 400 Bad regrest
-
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show("Данные успешно изменены в базе данных", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-               
-            }
-            else
-            {
-                MessageBox.Show("Ошибка при изменении данных в базу данных", "Неудача", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            return null;
-            //response.EnsureSuccessStatusCode();
-            // MessageBox.Show(response.StatusCode.ToString());
-            //return poze;
+            poze.Muscle = "";
+            var shit = System.Text.Json.JsonSerializer.Serialize(poze);
+            using StringContent jsonContent = new(shit, Encoding.UTF8, "application/json");
+            using HttpResponseMessage response = await httpClient.PutAsync("Poze/" + poze.Id, jsonContent);
+            return poze;
         }
 
         public async Task DeleteTrain(int id)

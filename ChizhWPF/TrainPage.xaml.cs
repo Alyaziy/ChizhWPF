@@ -24,11 +24,14 @@ namespace ChizhWPF
     public partial class TrainPage : Window, INotifyPropertyChanged
     {
         public ObservableCollection<TrainDTO> Trains {  get; set; }
+        public UserDTO User { get; set; }
+        
 
-        public TrainPage()
+        public TrainPage(UserDTO User)
         {
             InitializeComponent();
             DataContext = this;
+            this.User = User;
             LoadTrain();
         }
 
@@ -49,19 +52,25 @@ namespace ChizhWPF
 
         private void buttonPoze(object sender, RoutedEventArgs e)
         {
-            new PozePage().Show();
+            new PozePage(User).Show();
             Close();
         }
 
         private void buttonTrain(object sender, RoutedEventArgs e)
         {
-            new TrainPage().Show();
+            new TrainPage(User).Show();
             Close();
         }
 
         private void logOut(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
+            Close();
+        }
+
+        private void Account(object sender, RoutedEventArgs e)
+        {
+            new AccountPage(User).Show();
             Close();
         }
     }

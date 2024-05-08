@@ -56,8 +56,15 @@ namespace ChizhWPF
 
         private async void SaveClose(object sender, RoutedEventArgs e)
         {
-            await Client.Instance.AddPozeAsync(PozeDTO);
-
+            await Client.Instance.AddPozeAsync(new PozeDTO
+            {
+                Tittle = pozeDTO.Tittle,
+                IdMuscle = SelectedMuscles.Id,
+                Muscle = SelectedMuscles.MuTittle,
+                Description = pozeDTO.Description,
+                Time = pozeDTO.Time,
+                Image = pozeDTO.Image,
+            });
             Close();
         }
 

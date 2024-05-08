@@ -21,10 +21,16 @@
             <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" Orientation="Horizontal">
                 <Button Content="Тренировки" Click="buttonTrainAdm" Margin="5" Background="#DCBDDF"/>
                 <Button Content="Позы" Click="buttonPozeAdm" Margin="5" Background="#DCBDDF"/>
-            
+            </StackPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="100">
+            <ComboBox ItemsSource="{Binding Muscles}"
+                      DisplayMemberPath="MuTittle"
+                      SelectedItem="{Binding SelectedMuscles,
+                UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-            <TextBlock Text="Позы" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Center"/>
+        <TextBlock Text="Позы" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Center"/>
 
         <DataGrid Grid.ColumnSpan="5" CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False"
   ItemsSource="{Binding Pozes}" SelectedItem="{Binding SelectedPoze}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">

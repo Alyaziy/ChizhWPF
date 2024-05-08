@@ -100,5 +100,13 @@ namespace ChizhWPF
             await Client.Instance.DeleteTrain(SelectedTrain.Id);
             LoadTrain();
         }
+
+        private void More(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            SelectedTrain = b.Tag as TrainDTO;
+            new MorePage(SelectedTrain).ShowDialog();
+            LoadTrain();
+        }
     }
 }

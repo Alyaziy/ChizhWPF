@@ -35,20 +35,33 @@
         </StackPanel>
 
         <TextBlock Text="Тренировки" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center"/>
-        
+
         <DataGrid Grid.ColumnSpan="5" CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False"
-          ItemsSource="{Binding Trains}" SelectedItem="{Binding SelectedTrain}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
+ItemsSource="{Binding Trains}" SelectedItem="{Binding SelectedTrain}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding TrTittle}"/>
-                <DataGridTemplateColumn >
+                <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TrDescription}" TextWrapping="Wrap" Width="300"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border Width="300" Padding="5" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <TextBlock  Text="{Binding TrTittle,
+                                      StringFormat='Название: {0}'}" />
+                                        <TextBlock Text="{Binding TrDescription,
+                                      StringFormat='Описание: {0}'}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding TrTime,
+                                      StringFormat='Время: {0}'}" TextWrapping="Wrap" />
+                                      <Button Content="Подробнее..." Tag="{Binding}" Click="More" Width="150" Height="30" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding TrTime}"/>
-                <!--<DataGridTextColumn Binding="{Binding MuTittle}"/>-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

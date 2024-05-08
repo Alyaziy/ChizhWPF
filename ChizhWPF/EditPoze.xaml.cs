@@ -28,12 +28,11 @@ namespace ChizhWPF
         private PozeDTO selectedPoze = new PozeDTO();
         public AdminDTO Admin { get; set; }
 
-        private MuscleDTO selectedMuscle;
-
         public event PropertyChangedEventHandler? PropertyChanged;
         public void Signal([CallerMemberName] string prop = null) =>
           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
+        private MuscleDTO selectedMuscle;
         public List<MuscleDTO> Muscles { get; set; }
         public MuscleDTO SelectedMuscles
         {
@@ -51,16 +50,14 @@ namespace ChizhWPF
             set
             {
                 selectedPoze = value;
-                Signal();
-
+           
             }
         }
 
-        public EditPoze(AdminDTO admin, PozeDTO poze, MuscleDTO selectedMuscle)
+        public EditPoze(AdminDTO admin, PozeDTO poze)
         {
             InitializeComponent();
             SelectedPoze = poze;
-            SelectedMuscles = selectedMuscle;
             this.Admin = admin;
             LoadMuscles();
             DataContext = this;
@@ -82,15 +79,8 @@ namespace ChizhWPF
                 MessageBox.Show("Не все поля заполнены!!");
                 return;
             }
-            MuscleDTO muscleGroup = (MuscleDTO)EditMusculeText.SelectedItem;
-            SelectedPoze.Tittle = PozeTittle.Text;
-            SelectedPoze.Description = Description.Text;
-            
-
-            //SelectedPoze.IdMuscle = SelectedPoze.IdMuscle;
-            //SelectedPoze.Muscle = SelectedMuscles.MuTittle;
-            //Client.Instance.EditPoze(SelectedPoze, SelectedPoze.Id);
-            Client.Instance.EditPoze(muscleGroup, SelectedPoze,SelectedPoze.Id);
+            SelectedPoze.IdMuscle = SelectedMuscles.Id;
+            Client.Instance.EditPoze(SelectedPoze, SelectedPoze.Id);
             Close();
         }
 

@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChizhWPF"
         mc:Ignorable="d"
-        Title="AccountPage" Height="450" Width="800">
+        Title="AccountPage" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label BorderThickness="2" Content="Логин"/>
+            <TextBlock x:Name="textUserName"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label BorderThickness="2" Content="Вес"/>
+            <TextBlock x:Name="textWeight"/>
+            <Label BorderThickness="2" Content="Рост"/>
+            <TextBlock x:Name="textHeight" Text="{Binding Height}"/>
+        </StackPanel>
     </Grid>
 </Window>

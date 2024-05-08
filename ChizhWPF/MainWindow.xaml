@@ -28,8 +28,15 @@
                 <Hyperlink Click="SignUp">Нет аккаунта?</Hyperlink>
             </TextBlock>-->
             <TextBlock FontSize="15" HorizontalAlignment="Center">
+                <Hyperlink Click="Register">Нет аккаунта?</Hyperlink>
+            </TextBlock>
+            
+            <TextBlock FontSize="15" HorizontalAlignment="Center">
                 <Hyperlink Click="IAdmin">Я админ</Hyperlink>
             </TextBlock>
+
+            
+
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
             <Image Source="C:\Users\Student\source\repos\ChizhWPF\ChizhWPF\Image\4961572.png" Height="168" Width="193" />

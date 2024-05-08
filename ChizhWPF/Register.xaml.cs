@@ -19,40 +19,34 @@ using System.Windows.Shapes;
 namespace ChizhWPF
 {
     /// <summary>
-    /// Логика взаимодействия для AccountPage.xaml
+    /// Логика взаимодействия для Register.xaml
     /// </summary>
-    public partial class AccountPage : Window, INotifyPropertyChanged
+    public partial class Register : Window, INotifyPropertyChanged
     {
-        public UserDTO User { get; set; }
-        //public User user { get; set; }
+        public UserDTO userDTO = new UserDTO();
+        public UserDTO UserDTO { get => userDTO; set => userDTO = value; }
 
-        public AccountPage(UserDTO User)
+        public Register()
         {
             InitializeComponent();
-            this.User = User;
-            DisplayUserInfo();
-
+            DataContext = this;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void Signal([CallerMemberName] string prop = null) =>
           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
-        private async void DisplayUserInfo()
+        private async void SaveClose(object sender, RoutedEventArgs e)
         {
-            if (User != null)
+            await Client.Instance.RegisterAsync(new UserDTO
             {
-                textUserName.Text = User.Name;
-                textHeight.Text = User.Height;
-                textWeight.Text = User.Weight;
-            }
-            else
-            {
-                textUserName.Text = "Юзер не найден";
-                textHeight.Text = "Юзер не найден";
-                textWeight.Text = "Юзер не найден";
-            }
-            Signal(nameof(User));
+                Name = userDTO.Name,
+                Password = userDTO.Password,
+                Weight = userDTO.Weight,
+                Height = userDTO.Height,
+            });
+            new MainWindow().Show();
+            Close();
         }
     }
 }

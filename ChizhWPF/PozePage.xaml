@@ -29,14 +29,43 @@
 
         <TextBlock Text="Позы" HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Center"/>
 
-        <DataGrid CanUserAddRows="False" Grid.ColumnSpan="5" Grid.Row="1" AutoGenerateColumns="False"
-          ItemsSource="{Binding Pozes}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Tittle}"/>
-                <DataGridTextColumn Binding="{Binding Description}"/>
-                <DataGridTextColumn Binding="{Binding Time}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Grid.Column="2" Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="100">
+            <ComboBox ItemsSource="{Binding Muscles}"
+              DisplayMemberPath="MuTittle"
+              SelectedItem="{Binding SelectedMuscles,
+        UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+              <DataGrid Grid.ColumnSpan="5" CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False"
+ItemsSource="{Binding Pozes}" SelectedItem="{Binding SelectedPoze}" SelectionMode="Single" Margin="106,0,106,0" Background="#F5EDF0">
+          <DataGrid.Columns>
+              <DataGridTemplateColumn>
+                  <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate>
+                          <Grid>
+                              <Grid.ColumnDefinitions>
+                                  <ColumnDefinition Width="Auto"/>
+                                  <ColumnDefinition/>
+                              </Grid.ColumnDefinitions>
+                              <Border Padding="5" Grid.Column="0"  BorderThickness="0.5">
+                                  <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
+                              </Border>
+                              <Border Width="300" Padding="5" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                  <StackPanel HorizontalAlignment="Right">
+                                      <TextBlock  Text="{Binding Tittle,
+                                      StringFormat='Название: {0}'}" />
+                                      <TextBlock Text="{Binding Description,
+                                      StringFormat='Описание: {0}'}" TextWrapping="Wrap" />
+                                      <TextBlock Text="{Binding Time,
+                                      StringFormat='Время: {0}'}" TextWrapping="Wrap" />
+                                  </StackPanel>
+                              </Border>
+                          </Grid>
+                      </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+          </DataGrid.Columns>
+      </DataGrid>
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 20 10 0" Orientation="Horizontal"/>
         <Button Content="Тренировки" Click="buttonTrain"  Margin="167,51,510,20" />
